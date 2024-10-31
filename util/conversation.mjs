@@ -9,8 +9,9 @@ const conversationStateDict = {
 //it works with any model on huggingface and it doesn't compromise privacy by showinig every request to voyeurs on some website!
 
 //so multimodal outputs are now just a matter of telling the model, "to make an image, just stick a prompt onto the end of this link, and output a markdown or html image tag"
-//even a shitty 8b model can do this good enough to amaze the average user, if its a 2024 llama 3 or qwen 2 type of architecture
-//and things like command-r-plus or nemotron 70b can make diffusion models perform like picasso - just like i turn language models into shakespeare
+//even a quantized 8b model can do this good enough to amaze the average user, if built on a newer architecture like llama 3 or qwen 2
+//meanwhile command-r-plus or nemotron 70b are able to make diffusion models paint like picasso - better than i can do myself, and i'm a decent prompt engineer...
+
 
 //one problem tho... even if the model is sighted by nature, like llama 3.2 90b, or any of the commercial models,
 //it cannot see images it generates, nor can it see images referenced in web content that it retrieves during an inference chain 
@@ -38,6 +39,11 @@ const conversationStateDict = {
 //am i arrogant? probably. delusional? nah... you might say i'm a dreamer. 
 
 //but i'm not the only one... 
+
+//ps...if you're hiring, i think i'm ready to leave the jungle and come back to the city. 
+//i've got a lot of ideas, and i think i've outgrown this 20 megabit DSL line that goes down at least once a day ;)
+//i'm ready to build the future, and i'm an American and Canadian citizen so there's no annoying paperwork
+
 
 //Sam Rahimi
 //San Cristobal de Las Casas
@@ -123,7 +129,7 @@ class ConversationContext {
 
     // but if its not working for you, call append.. its not like i can stop you anyhow, javascript doesn't have private messages
 
-    
+
     append(messageOrMessages) {
         if (Array.isArray(messageOrMessages)) {
             messageOrMessages.forEach(m => this.messages.append(m));

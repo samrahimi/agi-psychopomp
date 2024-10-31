@@ -1,0 +1,17 @@
+{
+  "name": "arc-agi",
+  "version": "1.0.0",
+  "description": "This repository contains the ARC-AGI task data, as well as a browser-based interface for humans to try their hand at solving the tasks manually.",
+  "main": "llm-eval.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "lodash": "^4.17.21",
+    "node-fetch": "^3.3.2"
+  }
+}
