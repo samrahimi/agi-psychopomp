@@ -6,6 +6,7 @@ import path from 'path';
 import { program } from 'commander';
 import chalk from 'chalk';
 import _ from 'lodash';
+import {normalize} from './util/normalizeOutput.mjs'
 
 // Format the evaluation prompt from a question JSON
 function formatEvalPrompt(data) {
@@ -31,8 +32,13 @@ Training Examples: `;
 }
 
 // Validate model's answer against the correct output
-function validateAnswer(answer, correctOutput) {
+async function validateAnswer(answer, correctOutput) {
     try {
+        const normalizedAnswer = await normalize(answer);
+        const normalizedCorrectOutput =  await normalize(correctOutput);
+        return normalizedAnswer.trim() === normalizedCorrectOutput.trim();
+
+
         // Extract the array from the model's response
         const answerMatch = answer.match(/\[\[.*?\]\]/s);
         if (!answerMatch) return false;
@@ -83,8 +89,9 @@ async function evaluateModel(modelId, systemMessagePath, evalPath, outputPath, n
                 console.log(chalk.blue('Model answer:', answer));
                 console.log(chalk.green('Correct output:', JSON.stringify(correctOutput)));
                 console.log()
-                if (validateAnswer(answer, correctOutput)) {
-                    solved = true;
+
+                solved= await validateAnswer(answer, correctOutput);
+                if (solved) {
                     console.log(chalk.green('✓ Correct answer!'));
                 } else {
                     console.log(chalk.red('✗ Incorrect answer'));
@@ -128,8 +135,11 @@ const options = program.opts();
 // Main execution
 async function main() {
     try {
-        if (!process.env.OPENROUTER_API_KEY) {
-            throw new Error('OPENROUTER_API_KEY environment variable is required');
+        if (!process.env.LLM_API_KEY) {
+            throw new Error('LLM_API_KEY environment variable is required');
+        }
+        if (!process.env.LLM_INFERENCE_URL) {
+            throw new Error('LLM_INFERENCE_URL environment variable is required');
         }
 
         const results = await evaluateModel(options.model, options.system, options.evals, options.output, options.num);

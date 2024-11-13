@@ -73,9 +73,9 @@ class InferenceEngine {
         this.settings = { ...defaultParams, ...paramsDictionary };
     }
     async createChatCompletion(inputContext) {
-        const conversationState = conversationStateDict[conversationContext.metadata.conversationId];
+        const conversationState = conversationStateDict[inputContext.metadata.conversationId];
         if (!conversationState) {
-            conversationStateDict[conversationContext.metadata.conversationId] = conversationContext;
+            conversationStateDict[inputContext.metadata.conversationId] = conversationContext;
         }
     }
 }

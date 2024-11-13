@@ -30,3 +30,5 @@ const normalize = async(input) => {
         return input.map(row => row.join(" ")).join("\n");
     }
 }
+
+export {normalize}
